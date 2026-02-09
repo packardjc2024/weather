@@ -7,6 +7,9 @@ from datetime import datetime, time, timedelta
 
 
 def generate_zip_url(city, state):
+    """
+    Uses the zippoptam api to get the lat/long for an city/state combo. 
+    """
     url = f'https://zippopotam.us/us/{state.replace(" ", "%20")}/{city}'
     response = requests.get(url)
     if response.status_code == 200:
@@ -109,14 +112,21 @@ def index(request):
 
 
 def search(request):
+    """
+    Uses Zippopotam to get the lat/long for the city/state combo and then creates
+    and saves a location object to the database. 
+    """
     if request.method == 'POST':
+        # Get the city and state from the form.
         city = request.POST.get('city').lower().strip()
         state = request.POST.get('state').lower().strip()
+        # Use Zippopotam to get the Lat/Long
         long, lat = generate_zip_url(city, state)
-        print(long, lat)
+        # Verify that it is a legitimate lat/long
         if long > 180 and lat == 90:
             request.session['error_message'] = 'Unable to find location.'
         else:
+            # Create a new location object and save
             new_location = Location(
                 city=city,
                 state=state,
@@ -124,7 +134,22 @@ def search(request):
                 latitude=lat
             )
             new_location.save()
+            # Deletes the oldest location if there are more than four
+            locations = Location.objects.all().order_by('id')
+            if len(locations) > 4:
+                locations[0].delete()
             if 'error_message' in request.session:
                 del request.session['error_message']
             request.session['error_message'] = None
+    return redirect('home_page:index')
+
+
+def delete_location(request):
+    """
+    Allows the user to delete a location by clicked the button.
+    """
+    if request.method == 'POST':
+        city = request.POST.get('city_name')
+        location = Location.objects.get(city=city)
+        location.delete()
     return redirect('home_page:index')

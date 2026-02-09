@@ -12,10 +12,31 @@
 <!-- Add the index's content to the main header block -->
 {% block body_extension %}
 
+<!-- Display the chosen locations -->
 <h1>Locations</h1>
+{% if locations %}
 {% for location in locations %}
     <p>{{ location.city}}, {{ location.state }}</p>
+    <form method="post" action="{% url 'home_page:delete_location' %}">
+        {% csrf_token %}
+        <input hidden id="city_name" name="city_name" value="{{ location.city }}">
+        <button type="submit">Delete</button>
+    </form>
 {% endfor %}
+{% else %}
+<p>No locations yet selected</p>
+{% endif %}
+
+<!-- form to add a location -->
+ <h1>Find A Location</h1>
+<form id="location-form" method="post" action="{% url 'home_page:search' %}">
+    {% csrf_token %}
+    <label for="city">City</label>
+    <input id="city" name="city" type="text">
+    <label for="state">State</label>
+    <input id="state" name="state" type="text">
+    <button type="submit">Add</button>
+</form>
 
 <h1>Forecasts</h1>
 {% for location in temps %}
@@ -30,7 +51,7 @@
     </thead>
     <tbody>
         {% for day in location.forecast %}
-        <caption>{{ day.</caption>
+        <caption>{{ day.day }}</caption>
         {% for hour in day.hours %}
         <tr>
             <td>{{ day.day }}</td>
@@ -47,14 +68,5 @@
 {% if error_message %}
 <h2>{{ error_message }}</h2>
 {% endif %}
-
-<form id="location-form" method="post" action="{% url 'home_page:search' %}">
-    {% csrf_token %}
-    <label for="city">City</label>
-    <input id="city" name="city" type="text">
-    <label for="state">State</label>
-    <input id="state" name="state" type="text">
-    <button type="submit">Add</button>
-</form>
 
 {% endblock %}

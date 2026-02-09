@@ -7,5 +7,6 @@ app_name = 'home_page'
 
 urlpatterns = [
     path('', conditional_login_required(views.index), name='index'),
-    path('search/', views.search, name='search'),
+    path('search/', conditional_login_required(views.search), name='search'),
+    path('delete_location/', conditional_login_required(views.delete_location), name='delete_location'),
 ]
