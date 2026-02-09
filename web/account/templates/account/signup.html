@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+<!-- Add the static files to the header block -->
+{% block header_extension %}
+<link rel="stylesheet" type="text/css" href='{% static "account/account.css" %}'>
+<script type="text/javascript" src="{% static 'account/account.js' %}"></script>
+{% endblock %}
+
+
+<!-- Add the index's content to the main header block -->
+{% block body_extension %}
+
+<div id="login-container" class="glass-container">
+    <form method="post" action="{% url 'account:signup' %}" id="signup-form">
+        {% csrf_token %}
+        <div class="signup-field-container">
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name">
+        </div>
+        <div class="signup-field-container">
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name">
+        </div>
+        <div class="signup-field-container">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+        </div>
+    <button type="submit">Register</button>
+        <div class="sigun=signup-field-container">
+            <a href="{% url 'account:index' %}">Already have an account? Log in</a>
+        </div>
+    </form>
+    
+</div>
+
+{% endblock %}

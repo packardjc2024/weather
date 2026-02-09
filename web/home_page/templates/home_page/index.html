@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+<!-- Add the static files to the header block -->
+{% block header_extension %}
+<link rel="stylesheet" type="text/css" href='{% static "home_page/home_page.css" %}'>
+<script type="text/javascript" src="{% static 'home_page/home_page.js' %}"></script>
+{% endblock %}
+
+
+<!-- Add the index's content to the main header block -->
+{% block body_extension %}
+
+<h1>Locations</h1>
+{% for location in locations %}
+    <p>{{ location.city}}, {{ location.state }}</p>
+{% endfor %}
+
+<h1>Forecasts</h1>
+{% for location in temps %}
+<table>
+    <caption>{{ location.display_name }}</caption>
+    <thead>
+        <tr>
+            <th>Day</th>
+            <th>Hour</th>
+            <th>Temperature</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for day in location.forecast %}
+        <caption>{{ day.</caption>
+        {% for hour in day.hours %}
+        <tr>
+            <td>{{ day.day }}</td>
+            <td>{{ hour.hour }}</td>
+            <td>{{ hour.temp }}</td>
+        </tr>
+        {% endfor %}
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endfor %}
+
+{% if error_message %}
+<h2>{{ error_message }}</h2>
+{% endif %}
+
+<form id="location-form" method="post" action="{% url 'home_page:search' %}">
+    {% csrf_token %}
+    <label for="city">City</label>
+    <input id="city" name="city" type="text">
+    <label for="state">State</label>
+    <input id="state" name="state" type="text">
+    <button type="submit">Add</button>
+</form>
+
+{% endblock %}

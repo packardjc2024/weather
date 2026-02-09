@@ -1,0 +1,15 @@
+.env
+web/.env
+db/.env
+.test_env
+web/.test_env
+db/.test_env
+test_nginx.txt
+__pycache__
+.DS_Store
+staticfiles/
+venv
+web/logs/django_logs.txt
+web/logs_volume/
+web/media_volume/
+web/static_volume/

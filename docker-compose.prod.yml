@@ -1,0 +1,11 @@
+# Prod specific volume locations
+# Replaces list, does not append, therefore .web:/app is removed
+# Command overrides dev runserver with gunicorn
+
+services:
+  web:
+    command: gunicorn --bind 0.0.0.0:$CONTAINER_PORT project.wsgi:application
+    volumes:
+      - /srv/docker/$PROJECT_NAME/staticfiles:/app/staticfiles
+      - /srv/docker/$PROJECT_NAME/media:/app/media
+      - /srv/docker/$PROJECT_NAME/logs:/app/logs

@@ -1,0 +1,56 @@
+# The base file (used only in dev)
+# -f docker-compose.yml runs dev
+# -f docker-compose.yml -f docker-compose.prod.yml" for Prod
+
+services:
+  db:
+    build: 
+      context: ./db
+    restart: always
+    container_name: ${PROJECT_NAME}_db
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_PORT=5432
+    networks:
+      - app_network
+
+  web:
+    command: python3 manage.py runserver 0.0.0.0:${CONTAINER_PORT}
+    build: 
+      context: ./web
+      args:
+        CONTAINER_PORT: ${CONTAINER_PORT}
+    user: "33:33" # linux for www-data:www-data and docker uses linux vm as well"
+    restart: always
+    healthcheck:
+      test: ["CMD", "python3", "manage.py", "check"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    container_name: ${PROJECT_NAME}_web
+    ports:
+      - "${CONTAINER_PORT}:${CONTAINER_PORT}"
+    depends_on:
+      - db
+    volumes:
+      - ./web:/app
+      - ./web/media_volume:/app/media
+      - ./web/static_volume:/app/staticfiles
+      - ./web/logs_volume:/app/logs
+    networks:
+      - app_network
+
+volumes:
+  postgres_data:
+  media_volume:
+  static_volume:
+  logs_volume:
+
+networks:
+  app_network:
+    name: ${NETWORK_NAME}
+    driver: bridge

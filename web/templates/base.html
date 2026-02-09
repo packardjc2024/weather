@@ -1,0 +1,62 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ site_title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/android-chrome-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/android-chrome-512x512.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon.ico' %}">
+    <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+    <!-- Bootstrap and JQuery-->
+    <script type="text/javascript" src="{% static 'jquery.js' %}"></script>
+    <!-- Project level CSS and JS Files -->
+    <link rel="stylesheet" type="text/css" href='{% static "project.css" %}'>
+    <script type="text/javascript" src="{% static 'project.js' %}"></script>
+    <!-- Block for Apps to add CSS and JS Files -->
+    {% block header_extension %}
+    {% endblock %}  
+</head>
+
+<body>
+
+    <!-- Navigation bar at the top of the page using "space-between flexbox"-->
+    <div id="nav-bar">
+        <!-- Left side of the navbar -->
+        <div id="nav-bar-left">
+            <div id="nav-bar-logo-container" class="centered-flexbox">
+                <img id="nav-bar-logo" src="{% static site_logo_url %}" alt="Logo">
+            </div>
+            <div id="nav-bar-title-container" class="centered-flexbox">
+                <h1 id="page-title">{{ site_title }}</h1>
+            </div>
+        </div>
+        <!-- Right side of the navbar -->
+        <div id="nav-bar-right">
+            {% if use_account %}
+            <a id="login-link" href="{% url 'account:index' %}">Login</a>
+            <a id="logout-link" href="{% url 'account:user_logout' %}">Logout</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- main-div that contains everything except the nav-bar and bottom-footer -->
+     <div id="main-div">
+
+        {% block body_extension %}
+        {% endblock %}
+
+    </div> <!-- End of main-div -->
+
+    <div id="bottom-footer">
+        <p>&copy; {{ copyright_name }} {{ copyright_year }}</p>
+    </div>
+
+</body>
+
+</html>
