@@ -44,6 +44,8 @@ DOMAIN_NAME = os.getenv('DOMAIN_NAME')
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
+    'weather.programmingondemand.com',
+    'www.weather.programmingondemand.com',
 ]
 
 if DOMAIN_NAME:
