@@ -144,7 +144,7 @@ TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 ###############################################################################
 # Static files
