@@ -34,7 +34,7 @@ RUN chmod +x /entry.sh
 RUN mkdir -p /app/staticfiles /app/media /app/logs /app/static
 RUN chown -R www-data:www-data /app
 RUN chmod -R 755 /app
-RUN chmod -R 775 /app/staticfiles /app/media /app/logs
+RUN chmod -R 775 /app/staticfiles /app/media /app/logs /app/static
 USER www-data
 
 # Run the entrypoint bash file
