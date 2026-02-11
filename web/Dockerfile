@@ -21,8 +21,8 @@ RUN pip3 install -r requirements.txt
 # Copy project
 COPY . /app
 
-RUN rm -rf web/staticfiles/*
-RUN cp -r web/static/* web/staticfiles/
+RUN rm -rf staticfiles/*
+RUN cp -r static/* staticfiles/
 
 # Set environment variables
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
