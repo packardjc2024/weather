@@ -28,6 +28,10 @@ cp .env web/.env
 cp .dockerignore db/.dockerignore
 cp .dockerignore web/.dockerignore
 
+# rm -rf web/staticfiles/*
+# cp -r web/static/* web/staticfiles/
+
+
 # Make Sure DEBUG = False in settings.py
 sed -i 's|^DEBUG[[:space:]]*=[[:space:]]*True[[:space:]]*#Bash_Target|DEBUG = False #Bash_Target|' "web/project/settings.py"
 

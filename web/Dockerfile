@@ -21,6 +21,9 @@ RUN pip3 install -r requirements.txt
 # Copy project
 COPY . /app
 
+RUN rm -rf web/staticfiles/*
+RUN cp -r web/static/* web/staticfiles/
+
 # Set environment variables
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -30,7 +33,7 @@ ENV PYTHONUNBUFFERED=1
 COPY entry.sh /entry.sh
 RUN chmod +x /entry.sh
 
-# # Change container permissions
+# Change container permissions
 RUN mkdir -p /app/staticfiles /app/media /app/logs
 RUN chown -R www-data:www-data /app
 RUN chmod -R 755 /app
