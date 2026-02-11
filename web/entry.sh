@@ -8,7 +8,7 @@ VOLUMES=(
     "/app/staticfiles"
     "/app/media"
     "/app/logs"
-    "/app/static"
+    # "/app/static"
 )
 
 # sudo chown -R www-data:www-data /app/static || true
@@ -28,6 +28,10 @@ done
 
 # Read the theme  files
 python3 generate_themes.py
+
+# Copy the development static files
+rm -rf web/staticfiles/*
+cp -r web/static/* web/staticfiles/
 
 # Collect static files
 python3 manage.py collectstatic --noinput
