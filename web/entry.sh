@@ -11,8 +11,6 @@ VOLUMES=(
     # "/app/static"
 )
 
-# sudo chown -R www-data:www-data /app/static || true
-# sudo chmod -R 755 /app/static || true
 
 for dir in "${VOLUMES[@]}"; do
     mkdir -p "$dir"

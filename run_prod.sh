@@ -28,8 +28,8 @@ cp .env web/.env
 cp .dockerignore db/.dockerignore
 cp .dockerignore web/.dockerignore
 
-# rm -rf web/staticfiles/*
-# cp -r web/static/* web/staticfiles/
+rm -rf web/staticfiles/*
+cp -r web/static/* web/staticfiles/
 
 
 # Make Sure DEBUG = False in settings.py
@@ -45,8 +45,7 @@ sudo mkdir -p /srv/docker/${PROJECT_NAME}/media
 sudo mkdir -p /srv/docker/${PROJECT_NAME}/logs
 sudo chown -R www-data:www-data /srv/docker/${PROJECT_NAME}
 
-# Rebuild the containers
-# docker compose down
+# build the containers and run
 docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d
 
 exit
