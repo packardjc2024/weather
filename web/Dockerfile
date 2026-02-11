@@ -21,9 +21,6 @@ RUN pip3 install -r requirements.txt
 # Copy project
 COPY . /app
 
-# Copy static to staticfiles for prod
-RUN python3 manage.py collectstatic --noinput
-
 # Set environment variables
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PYTHONDONTWRITEBYTECODE=1

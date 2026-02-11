@@ -28,8 +28,8 @@ cp .env web/.env
 cp .dockerignore db/.dockerignore
 cp .dockerignore web/.dockerignore
 
-rm -rf web/staticfiles/*
-cp -r web/static/* web/staticfiles/
+# rm -rf web/staticfiles/*
+# cp -r web/static/* web/staticfiles/
 
 
 # Make Sure DEBUG = False in settings.py
