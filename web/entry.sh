@@ -17,8 +17,8 @@ for dir in "${VOLUMES[@]}"; do
     # chmod -R g+rwX "$dir"
 done
 
-chown -R www-data:www-data /app/static
-chmod -R 755 /app/static
+sudo chown -R www-data:www-data /app/static
+sudo chmod -R 755 /app/static
 
 touch /app/logs/django_logs.txt
 
