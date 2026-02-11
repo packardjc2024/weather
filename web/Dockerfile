@@ -18,8 +18,8 @@ RUN pip3 install --upgrade pip
 COPY requirements.txt /app/
 RUN pip3 install -r requirements.txt
 
-RUN rm -rf staticfiles/*
-RUN cp -r static/* staticfiles/
+# RUN rm -rf staticfiles/*
+# RUN cp -r static/* staticfiles/
 
 # Copy project
 COPY . /app
