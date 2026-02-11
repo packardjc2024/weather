@@ -8,6 +8,7 @@ VOLUMES=(
     "/app/staticfiles"
     "/app/media"
     "/app/logs"
+    "/app/static"
 )
 
 for dir in "${VOLUMES[@]}"; do
