@@ -1,12 +1,13 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import subprocess
 
 
 # Deal with filepaths.
 BASE_DIR = Path(__file__).resolve().parent
 load_dotenv(Path.joinpath(BASE_DIR, '.env'))
-themes_filepath = Path.joinpath(BASE_DIR, 'staticfiles', 'themes.css')
+themes_filepath = Path.joinpath(BASE_DIR, 'static', 'themes.css')
 
 # Create the file content.
 css_content = f'''
@@ -24,3 +25,9 @@ with open(themes_filepath, 'w') as file:
 
 # Log the action. 
 print('Theme file generated')
+
+# Copy the favicon folder
+favicon_folder = Path.joinpath(BASE_DIR, 'static', 'favicon')
+
+
+# print('favicon folder copies to staticfiles)
