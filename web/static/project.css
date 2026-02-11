@@ -3,7 +3,8 @@
     --text-color: black;
     --body-color: grey;
     /* nav-bar variables */
-    --navbar-color: #778090;
+    /* --navbar-color: #778090; */
+    --navbar-color:  var(--navbar-color);
     --navbar-text-color: white;
     --navbar-height: 100px;
     /* banner variables */
@@ -11,12 +12,13 @@
     --banner-text-color: white;
     --banner-height: 100px;
     /* footer variables */
-    --footer-color: #708090;
+    --footer-color: var(--navbar-color);
     --footer-text-color: white;
     --footer-height: 30px;
     /* glass container variables */
-    --glass-color: rgb(208, 208, 208, 0.3);
-    --glass-border: solid rgb(208, 208, 208, 0.5) 1px;
+    /* --glass-color: rgb(208, 208, 208, 0.3); */
+    --glass-color: rgb(255, 255, 255, 0.3);
+    --glass-border: solid rgb(255, 255, 255, 0.5) 1px;
 }
 
 /* Set calculations to include padding internally */
@@ -70,7 +72,7 @@ body {
     flex-direction: column;
     width: 100%;
     min-height: 0;
-    background-color: #e9e9e9;
+    background-color: var(--primary-color);
 }
 
 #bottom-footer {

@@ -22,6 +22,9 @@ until pg_isready -h db -p 5432; do
   sleep 1
 done
 
+# Read the theme  files
+python3 generate_themes.py
+
 # Collect static files
 python3 manage.py collectstatic --noinput
 

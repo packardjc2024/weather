@@ -3,12 +3,6 @@
   box-sizing: border-box;
 }
 
-:root{
-    --locations-color: #ADBBDA;
-    --search-color: #8697C4;
-    --forecast-color: #778090;
-}
-
 
 /********** Locations summary at top **********/
 #locations-parent {
@@ -19,7 +13,7 @@
     width: 100%;
     padding: 20px;
     border-bottom: 2px solid black;
-    background-color: var(--locations-color);
+    background-color: var(--primary-color);
 }
 
 #locations-title {
@@ -56,7 +50,7 @@
     padding: 20px;
     width: 100%;
     border-bottom: 2px solid black;
-    background-color: var(--search-color);
+    background-color: var(--secondary-color);
 }
 
 .search-h1 {
@@ -111,29 +105,59 @@
 
 
 /********** Forecasts container **********/
-#forecasts {
+#forecasts-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     width: 100%;
     padding: 20px;
     gap: 20px;
+    background-color: var(--tertiary-color);
+}
+
+#forecasts-title {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .location-forecast-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
-    flex-wrap: wrap;
 }
 
-.location-tables-container,
+.location-border-container {
+    width:100%;
+    margin: 0px;
+    padding:0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.location-border {
+    margin: 0px;
+    padding: 0px;
+    width: 75%;
+    border-top: 4px solid black;
+}
+
 .location-title-container {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
 
-.location-title-container {
+.location-tables-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
     width: 100%;
 }
 
@@ -145,6 +169,6 @@
 
 th, td {
     border: 1px solid black;
-    padding: 10px;
+    padding: 5px;
     text-align: center;
 }

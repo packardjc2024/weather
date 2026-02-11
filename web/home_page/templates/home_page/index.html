@@ -66,16 +66,22 @@
     </form>
 </div>
 
-<!-- div where forecasts will be displayed -->
-<h1>Forecasts</h1>
-<div id="forecasts">
+<!-- Section where forecasts will be displayed -->
+<div id="forecasts-container">
+    <div id="forecasts-title">
+        <h1>Forecasts</h1>
+    </div>
+    <!-- Individual location forecast -->
     {% for location in locations %}
     <div class="location-forecast-container">
+        <div class="location-border-container">
+            <div class="location-border"></div>
+        </div>
         <div class="location-title-container">
             <h3>{{ location.location }}</h3>
         </div>
-        {% for day in location.days %}
         <div class="location-tables-container">
+        {% for day in location.days %}
             <table class="forecast-table">
                 <caption>{{ day.day }}</caption>
                 <caption>High: {{ day.high }}</caption>
@@ -83,7 +89,7 @@
                 <thead>
                     <tr>
                         <th>Hour</th>
-                        <th>Temperature</th>
+                        <th>Temp.</th>
                     </tr>
                 </thead>
                 <tbody>
