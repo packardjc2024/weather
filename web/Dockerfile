@@ -31,10 +31,10 @@ COPY entry.sh /entry.sh
 RUN chmod +x /entry.sh
 
 # # Change container permissions
-RUN mkdir -p /app/staticfiles /app/media /app/logs /app/static
+RUN mkdir -p /app/staticfiles /app/media /app/logs
 RUN chown -R www-data:www-data /app
 RUN chmod -R 755 /app
-RUN chmod -R 775 /app/staticfiles /app/media /app/logs /app/static
+RUN chmod -R 775 /app/staticfiles /app/media /app/logs
 USER www-data
 
 # Run the entrypoint bash file
