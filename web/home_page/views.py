@@ -93,6 +93,7 @@ def format_temps_context(location):
     temps = Temperature.objects.filter(city=location).order_by('hour')
     temp_dict = {
         'location': f'{location.city.title()}, {location.state.upper()}',
+        'city': location.city,
         'days': [],
         }
     for i in range(0, len(temps), 24):
@@ -181,6 +182,7 @@ def delete_location(request):
     """
     if request.method == 'POST':
         city = request.POST.get('city_name')
+        print('city location:' + city)
         location = Location.objects.get(city=city)
         location.delete()
     return redirect('home_page:index')

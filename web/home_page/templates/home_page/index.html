@@ -12,44 +12,59 @@
 <!-- Add the index's content to the main header block -->
 {% block body_extension %}
 
-<!--- error message display-->
+<!--- Error message display-->
 {% if error_message %}
-<h1>Error</h1>
-<h3>{{ error_message }}</h2>
+    <h1>Error</h1>
+    <h3>{{ error_message }}</h2>
 {% endif %}
 
-<!-- Display the chosen locations -->
-<h1>Locations</h1>
-{% if locations %}
-<div id="locations-container">
-    {% for location in locations %}
-    <div class="location">
-        <p>{{ location.location }}</p>
-        <p>High: {{ location.days.0.high }}</p>
-        <p>Low: {{ location.days.0.low }}</p>
-        <form method="post" action="{% url 'home_page:delete_location' %}">
-            {% csrf_token %}
-            <input hidden id="city_name" name="city_name" value="{{ location.city }}">
-            <button type="submit">Delete</button>
-        </form>
+<!-- Display the chosen locations from the database -->
+ <div id="locations-parent">
+    <h1 id="locations-title">Locations</h1>
+    {% if locations %}
+    <div id="locations-container">
+        {% for location in locations %}
+            <div class="location glass-container">
+                <p>{{ location.location }}</p>
+                <!-- Display High and low for today -->
+                <p>High: {{ location.days.0.high }}</p>
+                <p>Low: {{ location.days.0.low }}</p>
+                <!-- Delete button -->
+                <form method="post" action="{% url 'home_page:delete_location' %}">
+                    {% csrf_token %}
+                    <input hidden id="city_name" name="city_name" value="{{ location.city }}">
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
-{% else %}
-<p>No locations yet selected</p>
-{% endif %}
+    {% else %}
+        <p>No locations yet selected</p>
+    {% endif %}
+ </div>
 
-<!-- form to add a location -->
- <h1>Find A Location</h1>
- <p>You can choose up to four locations at a time. </p>
-<form id="location-form" method="post" action="{% url 'home_page:search' %}">
-    {% csrf_token %}
-    <label for="city">City</label>
-    <input id="city" name="city" type="text">
-    <label for="state">State</label>
-    <input id="state" name="state" type="text">
-    <button type="submit">Add</button>
-</form>
+<!-- Form to add a new location -->
+ <div id="search-container">
+    <h1 class="search-h1">Find A New Location</h1>
+    <p class="search-p">You can choose up to four locations at a time.</p>
+    <p class="search-p">After four the oldest location will be deleted.</p>
+    <form id="location-form" method="post" action="{% url 'home_page:search' %}">
+        {% csrf_token %}
+        <div id="form-container">
+            <div id="label-container">
+                <label for="city">City:</label>
+                <label for="state">State:</label>
+            </div>
+            <div id="input-container">
+                <input id="city" name="city" type="text" placeholder="City...">
+                <input id="state" name="state" type="text" placeholder="State...">
+            </div>
+        </div>
+        <div id="search-button-container">
+            <button id="search-button" type="submit">Add</button>
+        </div>
+    </form>
+</div>
 
 <!-- div where forecasts will be displayed -->
 <h1>Forecasts</h1>
