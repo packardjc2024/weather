@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 # Deal with filepaths.
 BASE_DIR = Path(__file__).resolve().parent
 load_dotenv(Path.joinpath(BASE_DIR, '.env'))
-themes_filepath = Path.joinpath(BASE_DIR, 'static', 'themes.css')
+themes_filepath = Path.joinpath(BASE_DIR, 'staticfiles', 'themes.css')
 
 # Create the file content.
 css_content = f'''
