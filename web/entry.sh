@@ -8,7 +8,7 @@ VOLUMES=(
     "/app/staticfiles"
     "/app/media"
     "/app/logs"
-    # "/app/static"
+    "/app/static"
 )
 
 
@@ -16,6 +16,9 @@ for dir in "${VOLUMES[@]}"; do
     mkdir -p "$dir"
     # chmod -R g+rwX "$dir"
 done
+
+chown -R www-data:www-data /app/static
+chmod -R 755 /app/static
 
 touch /app/logs/django_logs.txt
 
