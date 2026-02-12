@@ -28,10 +28,10 @@ with open(themes_filepath, 'w') as file:
 # Log the action. 
 print('Theme file generated')
 
-# Copy the favicon folder
-subprocess.run([
-    'cp', '-r', f'${static_path}/*', f'{staticfiles_path}/',
-    ])
+# # Copy the favicon folder
+# subprocess.run([
+#     'cp', '-r', f'${static_path}/*', f'{staticfiles_path}/',
+#     ])
 
 
 # print('favicon folder copies to staticfiles)
