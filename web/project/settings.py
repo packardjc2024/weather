@@ -192,10 +192,10 @@ else:
     CSP_STYLE_SRC = ("'self'", )
     CSP_IMG_SRC = ("'self'",)
     CSP_FRAME_ANCESTORS = ("'self'",)
-
     CSP_FONT_SRC = ("'self'",)
     CSP_MEDIA_SRC = ("'self'",)
     CSP_CONNECT_SRC = ("'self'",)
+    CSP_MANIFEST_SRC = ("'self'",)
 
 
     #Logging
