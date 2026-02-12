@@ -72,7 +72,7 @@ body {
     flex-direction: column;
     width: 100%;
     min-height: 0;
-    background-color: var(--primary-color);
+    background-color: var(--tertiary-color);
 }
 
 #bottom-footer {
@@ -81,10 +81,30 @@ body {
     color: var(--footer-text-color);
     border-top: 2px solid black;
     width: 100%;
-    height: var(--footer-height);
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+#bottom-footer > p {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+    font-size: .75rem;
+}
+
+.attribution > a {
+    text-decoration: none !important;
+    color: var(--secondary-color);
+}
+
+#copyright {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 /***** Navbar at the top of the page *****/

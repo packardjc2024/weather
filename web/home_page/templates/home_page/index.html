@@ -31,7 +31,7 @@
                 <p>Low: {{ location.days.0.low }}</p>
                 <p>Precipitation: {{ location.days.0.precipitation }}%</p>
                 <!-- Delete button -->
-                <form method="post" action="{% url 'home_page:delete_location' %}">
+                <form class="delete_button" method="post" action="{% url 'home_page:delete_location' %}">
                     {% csrf_token %}
                     <input hidden id="city_name" name="city_name" value="{{ location.city }}">
                     <button type="submit">Delete</button>
