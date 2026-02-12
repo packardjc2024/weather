@@ -167,6 +167,22 @@
     margin: 20px;
 }
 
+.table-day {
+    border: 1px solid black;
+}
+
+.high-low {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.precipitation {
+    margin: 0px;
+    padding: 0px 0px 5px 0px;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
 th, td {
     border: 1px solid black;
     padding: 5px;

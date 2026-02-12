@@ -39,6 +39,7 @@ def get_temps(long, lat, days=7, temp_unit='fahrenheit'):
         '&timezone=auto'
         f'&forecast_days={days}'
         f'&temperature_unit={temp_unit}'
+        '&daily=precipitation_probability_mean&rain_sum&snowfall_sum'
     )
     response = requests.get(url)
     if response.status_code == 200:
@@ -53,6 +54,7 @@ def save_forecast_data(location):
     it to the database. 
     """
     data = get_temps(location.longitude, location.latitude)
+    # Save hourly temps
     for i in range(len(data['hourly']['temperature_2m'])):
         hour = datetime.strptime(data['hourly']['time'][i], '%Y-%m-%dT%H:%M')
         temp = round(data['hourly']['temperature_2m'][i])
@@ -62,6 +64,15 @@ def save_forecast_data(location):
             temp=temp
         )
         temp_obj.save()
+    # Save daily chance of precipitation
+    for i in range(len(data['daily']['precipitation_probability_mean'])):
+        print('TIME DATA: ' + data['daily']['time'][i])
+        precip_obj = Precipitation.objects.create(
+            city=location,
+            probability=round(data['daily']['precipitation_probability_mean'][i]),
+            day=data['daily']['time'][i],
+        )
+        precip_obj.save()
 
 
 def forecast_exists(location):
@@ -91,6 +102,7 @@ def format_temps_context(location):
     correctly for use in the template render.
     """
     temps = Temperature.objects.filter(city=location).order_by('hour')
+    # Dictionary for the location
     temp_dict = {
         'location': f'{location.city.title()}, {location.state.upper()}',
         'city': location.city,
@@ -98,12 +110,15 @@ def format_temps_context(location):
         }
     for i in range(0, len(temps), 24):
         hours = temps[i:i+24]
+         # Dictionary for the Day
+        date = hours[0].hour.date()
         day_dict = {
             'day': str(hours[0].hour.month) + '/' + str(hours[0].hour.day),
             'temps': [],
             'high': hours[0].temp,
-            'low': hours[0].temp
+            'low': hours[0].temp,
         }
+        # Dictionary for the temps
         for hour in hours:
             day_dict['temps'].append({
                 'hour': hour.hour.strftime('%I:%M %p').lstrip('0'),
@@ -113,6 +128,9 @@ def format_temps_context(location):
                 day_dict['high'] = hour.temp
             if hour.temp < day_dict['low']:
                 day_dict['low'] = hour.temp
+        # Add the chance of precipitation to the day dictionary
+        precip_object = Precipitation.objects.get(city=location, day=date)
+        day_dict['precipitation'] = precip_object.probability
         temp_dict['days'].append(day_dict)
     return temp_dict
 

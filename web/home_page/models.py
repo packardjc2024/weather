@@ -18,3 +18,9 @@ class Temperature(models.Model):
 
     def __str__(self):
         return f'{self.hour} - {self.temp}'
+    
+
+class Precipitation(models.Model):
+    city = models.ForeignKey(Location, on_delete=models.CASCADE)
+    probability = models.IntegerField(blank=False, null=False)
+    day = models.DateField(blank=False, null=False)

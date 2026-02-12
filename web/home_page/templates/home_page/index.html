@@ -29,6 +29,7 @@
                 <!-- Display High and low for today -->
                 <p>High: {{ location.days.0.high }}</p>
                 <p>Low: {{ location.days.0.low }}</p>
+                <p>Precipitation: {{ location.days.0.precipitation }}%</p>
                 <!-- Delete button -->
                 <form method="post" action="{% url 'home_page:delete_location' %}">
                     {% csrf_token %}
@@ -83,9 +84,10 @@
         <div class="location-tables-container">
         {% for day in location.days %}
             <table class="forecast-table">
-                <caption>{{ day.day }}</caption>
-                <caption>High: {{ day.high }}</caption>
-                <caption>Low: {{ day.low }}</caption>
+                <caption class="table-day">{{ day.day }}</caption>
+                <caption class="high-low">High: {{ day.high }}</caption>
+                <caption class="high-low">Low: {{ day.low }}</caption>
+                <caption class="precipitation">Precipitation: {{ day.precipitation }}%</caption>
                 <thead>
                     <tr>
                         <th>Hour</th>
