@@ -7,6 +7,8 @@ import subprocess
 # Deal with filepaths.
 BASE_DIR = Path(__file__).resolve().parent
 load_dotenv(Path.joinpath(BASE_DIR, '.env'))
+staticfiles_path = Path.joinpath(BASE_DIR, 'staticfiles')
+static_path = Path.joinpath(BASE_DIR, 'static')
 themes_filepath = Path.joinpath(BASE_DIR, 'staticfiles', 'themes.css')
 
 # Create the file content.
@@ -27,7 +29,9 @@ with open(themes_filepath, 'w') as file:
 print('Theme file generated')
 
 # Copy the favicon folder
-favicon_folder = Path.joinpath(BASE_DIR, 'static', 'favicon')
+subprocess.run([
+    'cp', '-r', f'${static_path}/*', f'{staticfiles_path}/',
+    ])
 
 
 # print('favicon folder copies to staticfiles)
