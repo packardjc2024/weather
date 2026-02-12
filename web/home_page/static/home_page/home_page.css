@@ -4,6 +4,18 @@
 }
 
 
+/********* Error message container **********/
+#error-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid black;
+    background-color: #ff8080;
+}
+
+
 /********** Locations summary at top **********/
 #locations-parent {
     display: flex;

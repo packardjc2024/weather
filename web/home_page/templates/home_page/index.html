@@ -14,8 +14,10 @@
 
 <!--- Error message display-->
 {% if error_message %}
-    <h1>Error</h1>
-    <h3>{{ error_message }}</h2>
+    <div id="error-container">
+        <h1>{{ error_title }}</h1>
+        <h3>{{ error_message }}</h2>
+    </div>
 {% endif %}
 
 <!-- Display the chosen locations from the database -->
@@ -49,6 +51,7 @@
     <h1 class="search-h1">Find A New Location</h1>
     <p class="search-p">You can choose up to four locations at a time.</p>
     <p class="search-p">After four the oldest location will be deleted.</p>
+    <p class="search-p">*For state use the two letter abbreviation.</p>
     <form id="location-form" method="post" action="{% url 'home_page:search' %}">
         {% csrf_token %}
         <div id="form-container">
@@ -58,7 +61,7 @@
             </div>
             <div id="input-container">
                 <input id="city" name="city" type="text" placeholder="City...">
-                <input id="state" name="state" type="text" placeholder="State...">
+                <input id="state" name="state" type="text" placeholder="ST...">
             </div>
         </div>
         <div id="search-button-container">

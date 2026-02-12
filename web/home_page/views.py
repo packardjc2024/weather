@@ -14,14 +14,14 @@ def get_lat_long(city, state):
     """
     Uses the zippoptam api to get the lat/long for an city/state combo. 
     """
-    url = f'https://zippopotam.us/us/{state.replace(" ", "%20")}/{city}'
-    response = requests.get(url)
-    if response.status_code == 200:
+    try:
+        url = f'https://zippopotam.us/us/{state.replace(" ", "%20")}/{city}'
+        response = requests.get(url)
         data = response.json()
         lat = round(float(data['places'][0]['latitude']), 2)
         long = round(float(data['places'][0]['longitude']), 2)
         return long, lat
-    else:
+    except:
         return 181, 91
     
 
@@ -145,6 +145,8 @@ def index(request):
     # Check if there is an error message
     if 'error_message' in request.session:
         context['error_message'] = request.session['error_message']
+    if 'error_title' in request.session:
+        context['error_title'] = request.session['error_title']
 
     # Get the saved locations from the database
     locations = Location.objects.all().order_by('-id')
@@ -172,8 +174,9 @@ def search(request):
         # Use Zippopotam to get the Lat/Long
         long, lat = get_lat_long(city, state)
         # Verify that it is a legitimate lat/long
-        if long > 180 and lat == 90:
-            request.session['error_message'] = 'Unable to find location.'
+        if long > 180 and lat > 90:
+            request.session['error_message'] = 'For State remember to use the two letter abbreviation.'
+            request.session['error_title'] = 'Unable to find location'
         else:
             # Create a new location object and save
             new_location = Location(
@@ -190,7 +193,10 @@ def search(request):
             # Resets the error message for the sesson
             if 'error_message' in request.session:
                 del request.session['error_message']
+            if 'error_title' in request.session:
+                del request.session['error_title']
             request.session['error_message'] = None
+            request.session['error_title'] = None
     return redirect('home_page:index')
 
 
@@ -203,4 +209,11 @@ def delete_location(request):
         print('city location:' + city)
         location = Location.objects.get(city=city)
         location.delete()
+    # Resets the error message for the sesson
+    if 'error_message' in request.session:
+        del request.session['error_message']
+    if 'error_title' in request.session:
+        del request.session['error_title']
+    request.session['error_message'] = None
+    request.session['error_title'] = None
     return redirect('home_page:index')
