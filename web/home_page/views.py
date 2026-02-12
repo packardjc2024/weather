@@ -66,7 +66,6 @@ def save_forecast_data(location):
         temp_obj.save()
     # Save daily chance of precipitation
     for i in range(len(data['daily']['precipitation_probability_mean'])):
-        print('TIME DATA: ' + data['daily']['time'][i])
         precip_obj = Precipitation.objects.create(
             city=location,
             probability=round(data['daily']['precipitation_probability_mean'][i]),
