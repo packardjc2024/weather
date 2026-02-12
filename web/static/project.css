@@ -149,6 +149,12 @@ body {
     cursor: pointer;
 }
 
+#portfolio-link {
+    text-decoration: none !important;
+    color: white;
+    font-size: 1.25rem;
+}
+
 /***** Media Queries for dynamic sizing *****/
 @media(max-width: 762px){
     /* optimize for phones */
