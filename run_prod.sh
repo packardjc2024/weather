@@ -6,6 +6,9 @@ source .env
 # Move into the project's root directory
 cd /home/developer/${PROJECT_NAME}
 
+# Set permission of favicon folder
+sudo chmod -R 755 web/static/favicon
+
 # Decrypt secret values
 decrypt_secret(){
     printf "%s\n" "$1" | \
