@@ -5,6 +5,8 @@ source .env
 
 # Move into the project's root directory
 cd /home/developer/${PROJECT_NAME}
+
+# Use more efficient docker compose bake
 export COMPOSE_BAKE=true
 
 # Set permission of favicon folder
@@ -31,10 +33,6 @@ cp .env db/.env
 cp .env web/.env
 cp .dockerignore db/.dockerignore
 cp .dockerignore web/.dockerignore
-
-# rm -rf web/staticfiles/*
-# cp -r web/static/* web/staticfiles/
-
 
 # Make Sure DEBUG = False in settings.py
 sed -i 's|^DEBUG[[:space:]]*=[[:space:]]*True[[:space:]]*#Bash_Target|DEBUG = False #Bash_Target|' "web/project/settings.py"

@@ -66,7 +66,6 @@ INSTALLED_APPS = [
     'system_check',  # Third party for system checks
     'account',  # My custom login app
     'home_page',  # Home page of app
-    'docs',
 ]
 
 MIDDLEWARE = [
@@ -156,10 +155,6 @@ FILES_LOCATION = BASE_DIR
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# if not DEBUG:
-#     STATICFILES_DIRS = []
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

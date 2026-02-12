@@ -13,7 +13,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('system_check.urls')),
     path('', include('home_page.urls')),
-    path('docs/', include('docs.urls')),
 ]
 
 # Conditionally use account based on LOGIN_REQUIRED
