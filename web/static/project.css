@@ -108,8 +108,12 @@ body {
     border-radius: 10px;
 }
 
-#nav-bar-title {
+#github-link {
+    padding: 20px;
+}
 
+#base-github {
+    height: 30px;
 }
 
 #logout-link, #login-link {
