@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .forms import *
 from .models import *
 import requests
-from datetime import datetime, time, timedelta
+from datetime import datetime, time, timedelta, date
 
 
 ###############################################################################
@@ -153,11 +153,12 @@ def index(request):
 
     # Check if forecast is oudated
     for location in locations:
-        if datetime.today() not in Precipitation.objects.values_list('day', flat=True):
+        one_week = timedelta(days=8)
+        if date.today() + one_week not in Precipitation.objects.filter(city=location).values_list('day', flat=True):
             location.delete()
-            locations.remove(location)
 
     # Get the forecast starting with today.
+    locations = Location.objects.all().order_by('-id')
     for location in locations:
         if not forecast_exists(location):
             save_forecast_data(location)
