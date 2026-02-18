@@ -176,6 +176,9 @@ def search(request):
         if long > 180 and lat > 90:
             request.session['error_message'] = 'For State remember to use the two letter abbreviation.'
             request.session['error_title'] = 'Unable to find location'
+        elif city in Location.objects.values_list('city', flat=True):
+            request.session['error_message'] = 'Cannot have duplicate Locations.'
+            request.session['error_title'] = 'Duplicate Location.'
         else:
             # Create a new location object and save
             new_location = Location(
