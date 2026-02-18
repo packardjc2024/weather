@@ -151,6 +151,12 @@ def index(request):
     locations = Location.objects.all().order_by('-id')
     context['locations'] = []
 
+    # Check if forecast is oudated
+    for location in locations:
+        if datetime.today() not in Precipitation.objects.values_list('day', flat=True):
+            location.delete()
+            locations.remove(location)
+
     # Get the forecast starting with today.
     for location in locations:
         if not forecast_exists(location):
