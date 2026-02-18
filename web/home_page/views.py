@@ -156,6 +156,8 @@ def index(request):
     for location in locations:
         print(location)
         days = Precipitation.objects.filter(city=location.id).values_list('day', flat=True)
+        print(days)
+        print(date.today())
         if days:
             if date.today() != min(days):
                 location.delete()
