@@ -155,7 +155,7 @@ def index(request):
     # Check if forecast is oudated
     for location in locations:
         print(location)
-        days = Precipitation.objects.filter(city=location).values_list('day', flat=True)
+        days = Precipitation.objects.filter(city=location.id).values_list('day', flat=True)
         if days:
             if date.today() != min(days):
                 location.delete()
