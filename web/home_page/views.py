@@ -153,6 +153,7 @@ def index(request):
     locations = Location.objects.all().order_by('-id')
 
     # Check if forecast is oudated
+    to_delete = []
     for location in locations:
         print(location)
         days = Precipitation.objects.filter(city=location.id).values_list('day', flat=True)
@@ -162,7 +163,9 @@ def index(request):
             print(date.today() + timedelta(days=1))
             print(date.today() + timedelta(days=1) != min(days))
             if date.today() + timedelta(days=1) != min(days):
-                location.delete()
+                to_delete.append(location)
+    for location in to_delete:
+        location.delete()
 
     # Get the forecast starting with today.
     locations = Location.objects.all().order_by('-id')
