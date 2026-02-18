@@ -220,9 +220,11 @@ def delete_location(request):
     """
     if request.method == 'POST':
         city = request.POST.get('city_name')
-        print('city location:' + city)
-        location = Location.objects.get(city=city)
-        location.delete()
+        try:
+            location = Location.objects.get(city=city)
+            location.delete()
+        except Location.DoesNotExist:
+            return redirect('home_page:index')
     # Resets the error message for the sesson
     if 'error_message' in request.session:
         del request.session['error_message']
