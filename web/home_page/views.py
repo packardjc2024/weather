@@ -151,11 +151,11 @@ def index(request):
     locations = Location.objects.all().order_by('-id')
     context['locations'] = []
 
-    # Check if forecast is oudated
-    for location in locations:
-        one_week = timedelta(days=6)
-        if date.today() + one_week not in Precipitation.objects.filter(city=location).values_list('day', flat=True):
-            location.delete()
+    # # Check if forecast is oudated
+    # for location in locations:
+    #     print(date.today())
+    #     if date.today() != min(Precipitation.objects.filter(city=location).values_list('day', flat=True)):
+    #         location.delete()
 
     # Get the forecast starting with today.
     locations = Location.objects.all().order_by('-id')
