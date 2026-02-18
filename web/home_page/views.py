@@ -153,7 +153,7 @@ def index(request):
 
     # Check if forecast is oudated
     for location in locations:
-        one_week = timedelta(days=8)
+        one_week = timedelta(days=6)
         if date.today() + one_week not in Precipitation.objects.filter(city=location).values_list('day', flat=True):
             location.delete()
 
