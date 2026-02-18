@@ -139,7 +139,9 @@ def format_temps_context(location):
 ###############################################################################
 
 def index(request):
-    context = {}
+    context = {
+        'locations': [],
+    }
 
     # Check if there is an error message
     if 'error_message' in request.session:
@@ -149,11 +151,13 @@ def index(request):
 
     # Get the saved locations from the database
     locations = Location.objects.all().order_by('-id')
-    context['locations'] = []
 
     # Check if forecast is oudated
     for location in locations:
-        if date.today() != min(Precipitation.objects.filter(city=location).values_list('day', flat=True)):
+        print(location)
+        days = Precipitation.objects.filter(city=location).values_list('day', flat=True)
+        print(days)
+        if date.today() != min(days):
             location.delete()
 
     # Get the forecast starting with today.
