@@ -156,9 +156,9 @@ def index(request):
     for location in locations:
         print(location)
         days = Precipitation.objects.filter(city=location).values_list('day', flat=True)
-        print(days)
-        if date.today() != min(days):
-            location.delete()
+        if days:
+            if date.today() != min(days):
+                location.delete()
 
     # Get the forecast starting with today.
     locations = Location.objects.all().order_by('-id')
