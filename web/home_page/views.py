@@ -4,6 +4,34 @@ from .forms import *
 from .models import *
 import requests
 from datetime import datetime, time, timedelta, date
+from account.models import Visitor
+import geocoder
+from datetime import date
+import logging
+
+
+def get_user_info(request):
+    try:
+        data = request.META.get('HTTP_X_FORWARDED_FOR')
+        if data:
+            ip = data.split(',')[0].strip()
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        request.session['counted'] = True
+        geocode = geocoder.ip(ip)
+        city = geocode.city
+        state = geocode.state
+        country = geocode.country
+        visitor = Visitor(
+            ip_address=ip,
+            city=city,
+            state=state,
+            country=country,
+            date=date.today()
+        )
+        visitor.save()
+    except:
+        print('\n\nERROR: Could not get ip addresss\n\n')
 
 
 ###############################################################################
@@ -148,6 +176,10 @@ def index(request):
         context['error_message'] = request.session['error_message']
     if 'error_title' in request.session:
         context['error_title'] = request.session['error_title']
+
+    # Log the visitor
+    if 'counted' not in request.session:
+        get_user_info(request)
 
     # Get the saved locations from the database
     locations = Location.objects.all().order_by('-id')

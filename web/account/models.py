@@ -18,3 +18,9 @@ class UserProfile(models.Model):
     avatar_id = models.IntegerField(blank=True, null=True)
 
     
+class Visitor(models.Model):
+    ip_address = models.CharField()
+    city = models.CharField()
+    state = models.CharField()
+    country = models.CharField()
+    date = models.DateField()
